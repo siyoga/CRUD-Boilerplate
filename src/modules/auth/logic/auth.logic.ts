@@ -49,4 +49,8 @@ export class AuthLogic {
 
     return this.tokenLogic.generateTokenPair(existUser);
   }
+
+  async refresh(refreshToken: string): Promise<TokenPairDTO> {
+    return this.tokenLogic.refreshTokenPair(refreshToken);
+  }
 }

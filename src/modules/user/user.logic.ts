@@ -25,10 +25,16 @@ export class UserLogic {
   constructor(private readonly userService: UserService) {}
 
   async create(user: IUser): Promise<InBaseUserModel> {
-    const existUser = await this.userService.findOne(user.username);
+    const existUsername = await this.userService.findOne(user.username);
 
-    if (existUser) {
-      throw new BadRequestException('User exist');
+    if (existUsername) {
+      throw new BadRequestException('This username is already taken');
+    }
+
+    const existEmail = await this.userService.findOne(user.email);
+
+    if (existEmail) {
+      throw new BadRequestException('This email is already taken');
     }
 
     const newUser = await this.createEntity(user);

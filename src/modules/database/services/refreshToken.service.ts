@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { RefreshToken } from 'src/modules/database/repositories/refreshToken.repository';
-import { createOne } from 'src/tools/createOne';
-import { NewEntity } from 'src/types/entity.types';
 import { DeleteResult, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { RefreshToken } from '../repositories/refreshToken.repository';
+import { createOne } from '../../../tools/createOne';
+import { NewEntity } from 'src/types/entity.types';
 
 @Injectable()
 export class RefreshTokenService {
@@ -12,12 +13,20 @@ export class RefreshTokenService {
     private readonly refreshTokenRepository: Repository<RefreshToken>,
   ) {}
 
-  async findOne(username: string): Promise<RefreshToken> {
+  async findOneByUsername(username: string): Promise<RefreshToken> {
     return await this.refreshTokenRepository.findOne({
       where: {
         user: {
           username: username,
         },
+      },
+    });
+  }
+
+  async findOneByRefreshToken(refreshToken: string): Promise<RefreshToken> {
+    return await this.refreshTokenRepository.findOne({
+      where: {
+        refreshToken: refreshToken,
       },
     });
   }
@@ -28,11 +37,7 @@ export class RefreshTokenService {
     return await createOne(this.refreshTokenRepository, newRefreshToken);
   }
 
-  async remove(username: string): Promise<DeleteResult> {
-    return await this.refreshTokenRepository.delete({
-      user: {
-        username: username,
-      },
-    });
+  async remove(refreshToken: RefreshToken): Promise<DeleteResult> {
+    return await this.refreshTokenRepository.delete(refreshToken);
   }
 }

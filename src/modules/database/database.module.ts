@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseConfig, DatabaseConfigMap } from 'src/types/database.types';
+import { DatabaseConfig, DatabaseConfigMap } from '../../types/database.types';
 import { RefreshToken } from './repositories/refreshToken.repository';
 import { User } from './repositories/user.repository';
 import { UserService } from './services/user.service';

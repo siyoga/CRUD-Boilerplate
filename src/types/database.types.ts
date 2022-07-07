@@ -1,5 +1,5 @@
 export enum DatabaseConfig {
-  DATABASE_NAME = 'databaseName',
+  DATABASE_NAME = 'databaseMainName',
   DATABASE_USERNAME = 'databaseUsername',
   DATABASE_HOST = 'databaseLocalhost',
   DATABASE_PASSWORD = 'databasePassword',
